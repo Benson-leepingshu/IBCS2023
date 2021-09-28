@@ -3,6 +3,7 @@
 # 01. Sum of all elemets in one list
 mylist = [1, 2, 3, 4, 5]
 answer = 0
+# answer = sum(mylist)
 for i in range(len(mylist)):
     answer = answer + mylist[i]
 print(answer)
@@ -15,6 +16,16 @@ for i in range(len(mylist)):
     cnt = answer.count(mylist[i])
     if cnt < 1:
         answer.append(mylist[i])
+# sulotion 1
+answer = list(set(mylist))
+# sulotion 2
+for val in mylist:
+    while mylist.count(val) > 1:
+        mylist.remove(val)
+# sulotion 3
+answer = [x for i, x in enumerate(mylist) if mylist.index(x) == i]
+# sulotion 4
+answer = [x for i, x in enumerate(mylist) if x not in mylist[i + 1 :]]
 print(answer)
 
 
@@ -37,10 +48,17 @@ for i in range(len(listb)):
             answer.append(listb[i])
             n = n + 1
 print(answer)
+# solution 1
+answer = [x for x in lista if x in listb]
+answer = list(set(answer))
+# solution 2
+answer = [x for i, x in enumerate(lista) if x in listb and list.index(x) == i]
 # 04. Write a program that finds the union of two lists, omitting duplicates
-# // 03 already achieve the goal
-
-
+lista = [0, 0, 1, 12, 5, 83, 246, 568]
+listb = [0, 356, 6, 5, 568, 24, 25]
+filtered = []
+answer = list(set(lista + listb))
+print(answer)
 # 05. Write a program that finds the differences of two lists
 lista = [0, 0, 1, 12, 5, 83, 246, 568]
 listb = [0, 356, 6, 5, 568, 24, 25]
@@ -65,6 +83,12 @@ for i in range(len(answer1)):
     listb.remove(answer1[i])
 answer = lista + listb
 print(answer)
+# solution 1
+answer = [x for x in lista if not x in listb]
+answer += [x for x in listb if not x in lista]
+answer = list(set(answer))
+# solution 2
+answer = [x for x in (lista + listb) if ((x not in lista) != (x not in listb))]
 
 
 # 06. Write a program that creates a list containing the frequencies of elements in a list
@@ -78,4 +102,11 @@ for i in range(len(mylist)):
 for i in range(len(answer1)):
     cnt = mylist.count(answer1[i])
     answer.append(cnt)
+# solution 1
+answer = list(set(mylist))
+newlist = []
+for val in answer:
+    newlist += [(val, answer.count(val))]
+# solution 2
+freq = [(x, answer.count(x)) for i, x in enumerate(answer) if i == answer.index(x)]
 print(answer)
